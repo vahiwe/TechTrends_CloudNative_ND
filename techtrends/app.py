@@ -79,17 +79,17 @@ def post(post_id):
     date, time = get_current_time()
     post = get_post(post_id)
     if post is None:
-      app.logger.info(f'{date}, {time}, Article with {post_id} ID doesn\'t exist')
+      app.logger.info('{}, {}, Article with {} ID doesn\'t exist'.format(date, time, post_id))
       return render_template('404.html'), 404
     else:
-      app.logger.info(f'{date}, {time}, Article "{post["title"]}" retrieved!')
+      app.logger.info('{}, {}, Article "{}" retrieved!'.format(date, time, post["title"]))
       return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
     date, time = get_current_time()
-    app.logger.info(f'{date}, {time}, "About Us" Page Retrieved')
+    app.logger.info('{}, {}, "About Us" Page Retrieved'.format(date, time))
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -104,7 +104,7 @@ def create():
             flash('Title is required!')
         else:
             create_post(title, content)
-            app.logger.info(f'{date}, {time}, Article "{title}" Created')
+            app.logger.info('{}, {}, Article "{}" Created'.format(date, time, title))
             return redirect(url_for('index'))
 
     return render_template('create.html')
@@ -117,7 +117,7 @@ def healthcheck():
             status=200,
             mimetype='application/json'
     )
-    app.logger.info(f'{date}, {time}, Health Status Retrieved')
+    app.logger.info('{}, {}, Health Status Retrieved'.format(date, time))
     return response
 
 @app.route('/metrics')
@@ -129,7 +129,7 @@ def metrics():
             status=200,
             mimetype='application/json'
     )
-    app.logger.info(f'{date}, {time}, Metrics Retrieved')
+    app.logger.info('{}, {}, Metrics Retrieved'.format(date, time))
     return response
 
 # start the application on port 3111
